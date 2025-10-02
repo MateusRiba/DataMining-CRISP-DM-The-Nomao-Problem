@@ -35,9 +35,9 @@ print("----------------------------------------------------")
 print(f"Dimensões do conjunto de treino: X: {X_train.shape}, y: {y_train.shape}")
 print(f"Dimensões do conjunto de teste: X: {X_test.shape}, y: {y_test.shape}")
 print("----------------------------------------------------")
+
 #--------------------------------------
 #Verificação de balanceamento das classes
-
 train_class_distribution = y_train.value_counts(normalize=True)
 test_class_distribution = y_test.value_counts(normalize=True)
 
@@ -48,8 +48,8 @@ print(train_class_distribution)
 print("\nDistribuição das classes no conjunto de teste:")
 print(test_class_distribution)
 print("----------------------------------------------------")
-
 #--------------------------------------
+
 '''Sprint 2 - Verificação de valores ausentes'''
 
 #QUantificação
@@ -183,14 +183,15 @@ for coluna_cat, coluna_num in pares:
 
 '''Sprint Bonus - Estatisticas Descritivas, Distribuição das Features Numéricas, Análise de Correlação, Propoção de Duplicatos Classe X Categoria'''
 
+numeric_columns = ['V3', 'V11', 'V19', 'V27', 'V89', 'V109']
+
 #Estatísticas descritivas
 print("----------------------------------------------------")
-print("Estatísticas descritivas das variáveis numéricas:")
-print(df.describe())
+print("Estatísticas descritivas das variáveis numéricas selecionadas:")
+print(df[numeric_columns].describe())
 print("----------------------------------------------------")
 
 #Distribuição das features numéricas
-numeric_columns = ['V3', 'V11', 'V19', 'V27', 'V89', 'V109']
 for col in numeric_columns:
     plt.figure(figsize=(10, 6))
     
