@@ -227,4 +227,12 @@ for col in categorical_columns:
     print(crosstab_result)
     print("----------------------------------------------------")
 
-    
+
+
+#_________________________
+
+#Salvando nova versão do DataFrame processado
+df2 = df.copy()
+
+output_path = os.path.join('C:\\Users\\mateu\\Arquivos de Programas Faculdade\\Repositorios\\DataMining-CRISP-DM-The-Nomao-Problem\\data\\processed', "nomao_2.csv")
+df2.to_csv(output_path, index=False, encoding='utf-8')
