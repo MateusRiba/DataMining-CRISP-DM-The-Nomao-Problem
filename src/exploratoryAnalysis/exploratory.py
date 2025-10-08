@@ -30,6 +30,14 @@ y = df['Class'] #Variavel alvo
 #Divisção dos dados em treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+# Separação
+df_train = X_train.copy()
+df_train['Class'] = y_train.values
+
+df_test = X_test.copy()
+df_test['Class'] = y_test.values
+
+
 #Visualização das dimensões dos conjuntos
 print("----------------------------------------------------")
 print(f"Dimensões do conjunto de treino: X: {X_train.shape}, y: {y_train.shape}")
@@ -113,6 +121,19 @@ category_map = {1: 'Não Inclui (n)', 2: 'Inclui (s)', 3: 'Inclusão Maxima (m)'
 for col in categorical_columns:
     if df[col].dtype == object:  # só mexe se for do tipo bytes
         df[col] = df[col].apply(lambda x: int(x.decode('utf-8')) if isinstance(x, bytes) else x)
+
+for col in categorical_columns:
+    if df_train[col].dtype == object:  # só mexe se for do tipo bytes
+        df_train[col] = df_train[col].apply(lambda x: int(x.decode('utf-8')) if isinstance(x, bytes) else x)
+
+for col in categorical_columns:
+    if df_test[col].dtype == object:  # só mexe se for do tipo bytes
+        df_test[col] = df_test[col].apply(lambda x: int(x.decode('utf-8')) if isinstance(x, bytes) else x)
+
+for col in categorical_columns:
+    if df[col].dtype == object:  # só mexe se for do tipo bytes
+        df[col] = df[col].apply(lambda x: int(x.decode('utf-8')) if isinstance(x, bytes) else x)
+
 
 #Visualização das primeiras linhas das colunas categóricas
 print("----------------------------------------------------")
@@ -208,6 +229,8 @@ for col in numeric_columns:
 #Análise de correlação ----> Está ERRADO!!!!
 
 df['Class_num'] = df['Class'].map({'Duplicado': 1, 'Não Duplicado': 0})
+df_train['Class_num'] = df_train['Class'].map({'Duplicado': 1, 'Não Duplicado': 0})
+df_test['Class_num'] = df_test['Class'].map({'Duplicado': 1, 'Não Duplicado': 0})
 
 corr_matrix = df.corr(numeric_only=True)
 # Renomeando a coluna Class_num para evitar conflito
@@ -233,6 +256,14 @@ for col in categorical_columns:
 
 #Salvando nova versão do DataFrame processado
 df2 = df.copy()
+df_train2 = df_train.copy()
+df_test2 = df_test.copy()
+
 
 output_path = os.path.join('C:\\Users\\mateu\\Arquivos de Programas Faculdade\\Repositorios\\DataMining-CRISP-DM-The-Nomao-Problem\\data\\processed', "nomao_2.csv")
+output_pathTrain = os.path.join('C:\\Users\\mateu\\Arquivos de Programas Faculdade\\Repositorios\\DataMining-CRISP-DM-The-Nomao-Problem\\data\\processed', "nomaoTrain_2.csv")
+output_pathTest = os.path.join('C:\\Users\\mateu\\Arquivos de Programas Faculdade\\Repositorios\\DataMining-CRISP-DM-The-Nomao-Problem\\data\\processed', "nomaoTest_2.csv")
+
 df2.to_csv(output_path, index=False, encoding='utf-8')
+df_train2.to_csv(output_pathTrain, index=False, encoding='utf-8')
+df_test2.to_csv(output_pathTest, index=False, encoding='utf-8')
